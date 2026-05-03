@@ -345,6 +345,11 @@
       [:set {:min 1, :gen/min 10, :max 100, :gen/max 200} int?]
       [:string {:min 1, :gen/min 10, :max 100, :gen/max 200}])))
 
+#?(:clj
+   (deftest decimal-generator-test
+     (is (every? decimal? (mg/sample [:decimal {:min 0.0M, :max 1.0M}] {:size 100})))
+     (is (every? #(<= 0.0M % 1.0M) (mg/sample [:decimal {:min 0.0M, :max 1.0M}] {:size 100})))))
+
 (deftest protocol-test
   (let [values #{1 2 3 5 8 13}
         schema (reify

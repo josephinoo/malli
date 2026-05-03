@@ -418,6 +418,7 @@
 (defmethod -schema-generator :int [schema options] (gen/large-integer* (-min-max schema options)))
 (defmethod -schema-generator :double [schema options] (double-gen schema options))
 (defmethod -schema-generator :float [schema options] (double-gen schema options))
+#?(:clj (defmethod -schema-generator :decimal [schema options] (gen-fmap bigdec (double-gen schema options))))
 (defmethod -schema-generator :boolean [_ _] gen/boolean)
 (defmethod -schema-generator :keyword [_ _] gen/keyword)
 (defmethod -schema-generator :symbol [_ _] gen/symbol)
